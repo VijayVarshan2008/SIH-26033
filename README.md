@@ -1,5 +1,3 @@
-# FARM_SOLUTION-SIH
-
 # Smart India Hackathon Workshop
 
 **Date:** 24 November 2026
