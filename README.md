@@ -1,6 +1,6 @@
 # Smart India Hackathon Workshop
 
-**Date:** 25 November 2026
+**Date:** 25 November 2026  
 
 **Name:** M VIJAY VARSHAN 
 
@@ -216,13 +216,27 @@ A farmer's supply is price-eligible when:
 Bmax >= Fmin_i
 ```
 
-The agreed price must satisfy:
+The agreed farmgate price must satisfy:
 
 ```text
-Fmin_i <= Pfinal_i <= Bmax
+Fmin_i <= Pfinal_i <= Bmax_farmgate
 ```
 
-The system must also verify crop, grade, available quantity, collection location and delivery time. Price overlap alone is not sufficient to create an order.
+The system must separately calculate the buyer's estimated delivered cost:
+
+```text
+Landed cost per kg =
+(total agreed produce value + disclosed logistics/handling charges)
+/ accepted quantity
+```
+
+The order can proceed only when:
+
+```text
+Landed cost per kg <= Bmax_landed
+```
+
+The system must also verify crop, grade, available quantity, collection location, vehicle capacity and delivery time. Price overlap alone is not sufficient to create an order. A buyer's farmgate-price ceiling must never be confused with the buyer's all-inclusive landed-cost ceiling.
 
 **Example:** A farmer's minimum price is ₹20/kg and a buyer's maximum price is ₹25/kg. The supply is eligible for negotiation in the ₹20–₹25/kg interval. The transaction is confirmed only after both parties accept a final price.
 
@@ -278,7 +292,7 @@ The route planner models pickups and deliveries as a Vehicle Routing Problem (VR
 - Maximum travel or transit time for perishable produce.
 - Vehicle availability and route cost.
 
-OpenStreetMap can provide geographic/road-network data. A routing service such as OSRM or GraphHopper can provide road-distance or travel-time information. Google OR-Tools can then solve a Vehicle Routing Problem with capacity and time constraints. The route result should be described as an optimized or near-optimal feasible route, not guaranteed to be mathematically optimal for every large problem.
+OpenStreetMap can provide geographic/road-network data. A routing service such as OSRM or GraphHopper can provide road-distance or travel-time information. Google OR-Tools can then solve a Vehicle Routing Problem with capacity and time constraints. The route result should be described as an optimized or near-optimal feasible route, not guaranteed to be mathematically optimal for every large problem. A prototype using straight-line distances or a nearest-neighbour heuristic is only a demonstration; production routing must use road-network travel times and enforce vehicle, time-window and perishability constraints.
 
 ## 4. Technologies to Be Used
 
@@ -301,7 +315,7 @@ The team should implement the core workflow first. External market-data feeds, a
 
 ## 5. Illustrative End-to-End Example
 
-A retailer requests **500 kg of Grade A tomatoes**, with delivery to a specified location on an agreed date and a maximum price of ₹24/kg.
+A retailer requests **500 kg of Grade A tomatoes**, with delivery to a specified location on an agreed date, a maximum farmgate produce price of ₹24/kg and a maximum landed cost of ₹25/kg including shared transport.
 
 Nearby farmers list the following confirmed supplies:
 
@@ -325,7 +339,7 @@ A proposed allocation could be:
 
 The remaining 50 kg from Farmer D is not reserved for this order. The buyer and each participating farmer must accept their respective final prices and terms. The platform then creates a pooled lot, records each contribution, schedules collection and plans a route subject to the selected vehicle's capacity and delivery window.
 
-After quality checks and delivery, farmer-wise payable amounts are calculated from accepted quantities and agreed prices, with only the pre-disclosed and accepted charges deducted.
+After quality checks and delivery, farmer-wise payable amounts are calculated from accepted quantities and agreed prices. In this illustrative settlement model, the buyer pays the farmer produce value and the logistics provider separately; transport is not also deducted from farmer payments. A different cost-sharing arrangement can be configured only if it is disclosed and accepted before order confirmation.
 
 ---
 
