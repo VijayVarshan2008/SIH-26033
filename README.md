@@ -27,7 +27,9 @@ Expected Solution: Create a digital marketplace that:
 
 Benefits:
 
-- Better prices for farmers. - Lower prices for consumers. - Reduced supply chain inefficiencies.
+- Better prices for farmers.
+- Lower prices for consumers. 
+- Reduced supply chain inefficiencies.
 
 ---
 
