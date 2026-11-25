@@ -1,6 +1,6 @@
 # Smart India Hackathon Workshop
 
-**Date:** 24 November 2026
+**Date:** 25 November 2026
 
 **Name:** M VIJAY VARSHAN
 
